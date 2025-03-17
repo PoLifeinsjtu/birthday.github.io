@@ -44,81 +44,167 @@ const particles = []; // 爆炸的粒子
 let smoothedData = [];
 const smoothingFactor = 0.8; // 平滑因子 (0-1)，越大越平滑
 
-// 宇宙飞船进度条功能
-function createSpaceshipIcon() {
-    // 创建一个新的canvas元素来绘制飞船
-    const shipCanvas = document.createElement('canvas');
-    shipCanvas.width = 30;
-    shipCanvas.height = 20;
-    const shipCtx = shipCanvas.getContext('2d');
-    
-    // 绘制飞船主体
-    shipCtx.fillStyle = '#00f7ff';
-    shipCtx.beginPath();
-    shipCtx.moveTo(25, 10); // 飞船头部
-    shipCtx.lineTo(5, 5);   // 左上角
-    shipCtx.lineTo(0, 10);  // 左中
-    shipCtx.lineTo(5, 15);  // 左下角
-    shipCtx.lineTo(25, 10); // 回到头部
-    shipCtx.closePath();
-    shipCtx.fill();
-    
-    // 绘制飞船窗口
-    shipCtx.fillStyle = '#ffffff';
-    shipCtx.beginPath();
-    shipCtx.arc(15, 10, 3, 0, Math.PI * 2);
-    shipCtx.fill();
-    
-    // 绘制引擎喷射
-    shipCtx.fillStyle = '#ff5500';
-    shipCtx.beginPath();
-    shipCtx.moveTo(0, 10);
-    shipCtx.lineTo(-5, 7);
-    shipCtx.lineTo(-8, 10);
-    shipCtx.lineTo(-5, 13);
-    shipCtx.lineTo(0, 10);
-    shipCtx.closePath();
-    shipCtx.fill();
-    
-    // 添加发光效果
-    shipCtx.shadowBlur = 10;
-    shipCtx.shadowColor = '#00f7ff';
-    shipCtx.strokeStyle = '#00f7ff';
-    shipCtx.lineWidth = 1;
-    shipCtx.stroke();
-    
-    // 返回飞船图像数据
-    return shipCanvas;
+// 小猫进度条功能
+function createCatIcon() {
+    // 创建一个新的canvas元素来绘制小猫
+    const catCanvas = document.createElement('canvas');
+    catCanvas.width = 40;
+    catCanvas.height = 40;
+    const catCtx = catCanvas.getContext('2d');
+
+    // 绘制小猫头部
+    catCtx.fillStyle = '#FFD700'; // 金黄色
+    catCtx.beginPath();
+    catCtx.arc(20, 20, 15, 0, Math.PI * 2); // 小猫头部
+    catCtx.fill();
+
+    // 绘制小猫耳朵（左耳）
+    catCtx.fillStyle = '#FFD700';
+    catCtx.beginPath();
+    catCtx.moveTo(10, 5);
+    catCtx.lineTo(5, 15);
+    catCtx.lineTo(15, 15);
+    catCtx.closePath();
+    catCtx.fill();
+
+    // 绘制小猫耳朵（右耳）
+    catCtx.beginPath();
+    catCtx.moveTo(30, 5);
+    catCtx.lineTo(35, 15);
+    catCtx.lineTo(25, 15);
+    catCtx.closePath();
+    catCtx.fill();
+
+    // 绘制小猫耳朵内侧（左耳）
+    catCtx.fillStyle = '#FFB6C1'; // 粉色
+    catCtx.beginPath();
+    catCtx.moveTo(11, 7);
+    catCtx.lineTo(8, 13);
+    catCtx.lineTo(14, 13);
+    catCtx.closePath();
+    catCtx.fill();
+
+    // 绘制小猫耳朵内侧（右耳）
+    catCtx.beginPath();
+    catCtx.moveTo(29, 7);
+    catCtx.lineTo(32, 13);
+    catCtx.lineTo(26, 13);
+    catCtx.closePath();
+    catCtx.fill();
+
+    // 绘制小猫眼睛
+    catCtx.fillStyle = '#000000';
+    catCtx.beginPath();
+    catCtx.arc(15, 20, 2, 0, Math.PI * 2); // 左眼
+    catCtx.arc(25, 20, 2, 0, Math.PI * 2); // 右眼
+    catCtx.fill();
+
+    // 绘制小猫嘴巴
+    catCtx.strokeStyle = '#000000';
+    catCtx.beginPath();
+    catCtx.moveTo(20, 25);
+    catCtx.lineTo(20, 28);
+    catCtx.moveTo(20, 28);
+    catCtx.lineTo(18, 30);
+    catCtx.moveTo(20, 28);
+    catCtx.lineTo(22, 30);
+    catCtx.stroke();
+
+    // 返回小猫图像数据
+    return catCanvas;
 }
 
-function initSpaceshipProgressBar() {
-    const spaceshipIcon = createSpaceshipIcon();
-    
+function initCatProgressBar() {
+    const catIcon = createCatIcon();
+
     // 添加CSS样式使进度条容器成为相对定位
     progressContainer.style.position = 'relative';
     progressContainer.style.overflow = 'visible';
-    
-    // 创建飞船元素并添加到DOM
-    const shipElement = document.createElement('div');
-    shipElement.id = 'spaceship';
-    shipElement.style.position = 'absolute';
-    shipElement.style.top = '-10px';
-    shipElement.style.left = '0';
-    shipElement.style.width = '30px';
-    shipElement.style.height = '20px';
-    shipElement.style.backgroundSize = 'contain';
-    shipElement.style.backgroundRepeat = 'no-repeat';
-    shipElement.style.backgroundPosition = 'center';
-    shipElement.style.zIndex = '10';
-    shipElement.style.transition = 'left 0.1s linear';
-    shipElement.style.pointerEvents = 'none'; // 防止飞船干扰点击事件
-    
-    // 将飞船图像设置为背景
-    const dataURL = spaceshipIcon.toDataURL();
-    shipElement.style.backgroundImage = `url(${dataURL})`;
-    
-    progressContainer.appendChild(shipElement);
-    
+
+    // 创建小猫元素并添加到DOM
+    const catElement = document.createElement('div');
+    catElement.id = 'cat';
+    catElement.style.position = 'absolute';
+    catElement.style.top = '-15px';
+    catElement.style.left = '0';
+    catElement.style.width = '40px';
+    catElement.style.height = '40px';
+    catElement.style.backgroundSize = 'contain';
+    catElement.style.backgroundRepeat = 'no-repeat';
+    catElement.style.backgroundPosition = 'center';
+    catElement.style.zIndex = '10';
+    catElement.style.pointerEvents = 'auto'; // 允许鼠标事件
+
+    // 将小猫图像设置为背景
+    const dataURL = catIcon.toDataURL();
+    catElement.style.backgroundImage = `url(${dataURL})`;
+
+    progressContainer.appendChild(catElement);
+
+    // 添加点击事件显示祝福语
+    let canClick = true; // 控制点击间隔
+    catElement.addEventListener('click', (e) => {
+        e.stopPropagation(); // 阻止事件冒泡到进度条
+        if (!canClick) return;
+
+        canClick = false;
+
+        // 在星空中绽放烟花
+        for (let i = 0; i < 5; i++) {
+            setTimeout(() => {
+                launchFirework(Math.random() * window.innerWidth, Math.random() * window.innerHeight);
+            }, i * 200);
+        }
+
+        // 创建祝福语
+        const message = document.createElement('div');
+        message.textContent = '李昀洁生日快乐';
+        message.style.position = 'fixed';
+        message.style.top = '50%';
+        message.style.left = '50%';
+        message.style.transform = 'translate(-50%, -50%) scale(0)';
+        message.style.fontSize = '48px';
+        message.style.color = '#FFFFFF';
+        message.style.textShadow = '2px 2px 10px #00BFFF, -2px -2px 10px #00BFFF';
+        message.style.zIndex = '100';
+        message.style.opacity = '0';
+        message.style.transition = 'opacity 1s ease-in-out, transform 1s ease-in-out';
+
+        // 添加动画效果
+        setTimeout(() => {
+            message.style.opacity = '1';
+            message.style.transform = 'translate(-50%, -50%) scale(1)';
+        }, 100);
+
+        document.body.appendChild(message);
+
+        // 渐入显示祝福语
+        setTimeout(() => {
+            message.style.opacity = '1';
+        }, 100);
+
+        // 渐出并移除祝福语
+        setTimeout(() => {
+            message.style.opacity = '0';
+            setTimeout(() => {
+                document.body.removeChild(message);
+                canClick = true; // 允许再次点击
+            }, 1000);
+        }, 3000);
+    });
+
+    // 更新小猫位置随进度条移动
+    audioPlayer.addEventListener('timeupdate', () => {
+        const currentTime = audioPlayer.currentTime;
+        const duration = audioPlayer.duration || 0;
+
+        if (duration > 0) {
+            const progressPercent = (currentTime / duration) * 100;
+            const catPosition = (progressContainer.clientWidth * progressPercent / 100) - 20; // 小猫中心对齐
+            catElement.style.left = `${catPosition}px`;
+        }
+    });
+
     // 添加CSS动画
     const styleElement = document.createElement('style');
     styleElement.textContent = `
@@ -129,6 +215,36 @@ function initSpaceshipProgressBar() {
     `;
     document.head.appendChild(styleElement);
 }
+
+// 在初始化函数中调用新的初始化函数
+window.addEventListener('load', () => {
+    console.log('页面加载完成，开始初始化...');
+    resizeCanvases();
+    updateVolumeDisplay();
+    initAudio();
+    initBackground();
+    
+    // 添加空格键触发烟花的功能
+    window.addEventListener('keydown', (e) => {
+        if (e.code === 'Space') {
+            e.preventDefault(); // 防止空格键滚动页面
+            launchFirework(Math.random() * window.innerWidth, window.innerHeight);
+        }
+    });
+    
+    // 点击画布触发烟花
+    fireworksCanvas.addEventListener('click', (e) => {
+        launchFirework(e.clientX, window.innerHeight);
+    });
+    
+    // 初始化小猫进度条
+    initCatProgressBar();
+    
+    // 立即开始动画循环，不等待音乐播放
+    startAnimations();
+});
+
+
 
 // 调整画布大小
 function resizeCanvases() {
@@ -151,32 +267,32 @@ function resizeCanvases() {
 }
 
 // 初始化
-window.addEventListener('load', () => {
-    console.log('页面加载完成，开始初始化...');
-    resizeCanvases();
-    updateVolumeDisplay();
-    initAudio();
-    initBackground();
+// window.addEventListener('load', () => {
+//     console.log('页面加载完成，开始初始化...');
+//     resizeCanvases();
+//     updateVolumeDisplay();
+//     initAudio();
+//     initBackground();
     
-    // 添加空格键触发烟花的功能
-    window.addEventListener('keydown', (e) => {
-        if (e.code === 'Space') {
-            e.preventDefault(); // 防止空格键滚动页面
-            launchFirework(Math.random() * window.innerWidth, window.innerHeight);
-        }
-    });
+//     // 添加空格键触发烟花的功能
+//     window.addEventListener('keydown', (e) => {
+//         if (e.code === 'Space') {
+//             e.preventDefault(); // 防止空格键滚动页面
+//             launchFirework(Math.random() * window.innerWidth, window.innerHeight);
+//         }
+//     });
     
-    // 点击画布触发烟花
-    fireworksCanvas.addEventListener('click', (e) => {
-        launchFirework(e.clientX, window.innerHeight);
-    });
+//     // 点击画布触发烟花
+//     fireworksCanvas.addEventListener('click', (e) => {
+//         launchFirework(e.clientX, window.innerHeight);
+//     });
     
-    // 初始化宇宙飞船进度条
-    initSpaceshipProgressBar();
+//     // 初始化宇宙飞船进度条
+//     initCatProgressBar();
     
-    // 立即开始动画循环，不等待音乐播放
-    startAnimations();
-});
+//     // 立即开始动画循环，不等待音乐播放
+//     startAnimations();
+// });
 
 window.addEventListener('resize', resizeCanvases);
 
