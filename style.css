@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -70,17 +72,25 @@ body {
     opacity: 0.8;
 }
 
+/* 修改后的底部文字样式 */
 .lyric {
     position: absolute;
     bottom: 20px;
-    font-size: 1.2rem;
-    font-style: italic;
-    font-family: 'Orbitron', sans-serif;
-    color: var(--accent-color);
-    text-shadow: 0 0 5px var(--accent-color);
+    font-size: 1.5rem; /* 增大字体以突出飘逸感 */
+    font-family: 'Dancing Script', cursive; /* 手写风格字体 */
+    color: #ffffff; /* 白色字体 */
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 12px rgba(0, 247, 255, 0.5); /* 白色发光+淡蓝阴影 */
     text-align: center;
     pointer-events: auto;
     z-index: 100;
+    animation: float 3s ease-in-out infinite; /* 添加飘逸动画 */
+}
+
+/* 添加飘逸动画 */
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+    100% { transform: translateY(0); }
 }
 
 /* 音乐播放器 */
@@ -262,58 +272,3 @@ body {
 
 .progress {
     height: 100%;
-    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-    width: 0%;
-    border-radius: 3px;
-    transition: width 0.1s linear;
-}
-
-.time-display {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.8rem;
-    font-family: 'Orbitron', sans-serif;
-    color: rgba(255, 255, 255, 0.7);
-}
-
-/* 画布 */
-canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-#background {
-    z-index: 0;
-}
-
-#visualizer {
-    z-index: 1;
-}
-
-#fireworks {
-    z-index: 2;
-}
-
-/* 响应式设计 */
-@media (max-width: 768px) {
-    .title h1 {
-        font-size: 1.8rem;
-    }
-    
-    .music-player {
-        width: 95%;
-        padding: 20px;
-    }
-    
-    .player-controls {
-        flex-direction: column;
-        gap: 15px;
-    }
-    
-    .volume-container {
-        width: 100%;
-    }
-} 
