@@ -83,6 +83,7 @@ body {
     text-align: center;
     pointer-events: none;
     z-index: 100;
+    animation: float 3s ease-in-out infinite;
 }
 
 /* 添加飘逸动画 */
