@@ -74,9 +74,7 @@ body {
 
 /* 修改后的底部文字样式 */
 .lyric {
-    position: fixed;
-    left: 0;
-    right: 0;
+    position: absolute;
     bottom: 20px;
     font-size: 1.0rem; /* 增大字体以突出飘逸感 */
     font-family: 'Dancing Script', cursive; /* 手写风格字体 */
